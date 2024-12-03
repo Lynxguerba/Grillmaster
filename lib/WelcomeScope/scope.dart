@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_declarations, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grillmaster/Login/login.dart';
+// import 'package:grillmaster/Login/login.dart';
 
 class Scope extends StatefulWidget {
   const Scope({super.key, required this.title});
@@ -62,17 +64,24 @@ class _ScopeState extends State<Scope> {
     return Scaffold(
       body: Stack(
         children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/Frame-bg.png'),
+                  fit: BoxFit.cover),
+            ),
+          ),
           PageView(
             controller: _pageController,
             children: [
               // SCOPE Page 1
               Container(
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Frame-bg.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    // image: DecorationImage(
+                    //   image: AssetImage('assets/images/Frame-bg.png'),
+                    //   fit: BoxFit.cover,
+                    // ),
+                    ),
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize
@@ -127,11 +136,11 @@ class _ScopeState extends State<Scope> {
               // SCOPE Page 2
               Container(
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Frame-bg.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    // image: DecorationImage(
+                    //   image: AssetImage('assets/images/Frame-bg.png'),
+                    //   fit: BoxFit.cover,
+                    // ),
+                    ),
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize
@@ -186,44 +195,59 @@ class _ScopeState extends State<Scope> {
               // SCOPE Page 3
               Container(
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/bg.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    // image: DecorationImage(
+                    //   image: AssetImage('assets/images/Frame-bg.png'),
+                    //   fit: BoxFit.cover,
+                    // ),
+                    ),
                 child: Center(
                   child: Column(
-                    mainAxisSize: MainAxisSize
-                        .min, // Ensures the column takes only as much space as its children
                     children: [
-                      SizedBox(height: 100), 
                       Image.asset(
-                        'assets/icons/app-icon.png',
-                        width: 300,
-                        height: 300,
+                        'assets/images/delivery.png',
+                        width: 500,
+                        height: 455,
                       ),
-                      SizedBox(
-                          height:
-                              150),
-                    //  GET STARTED BUTTON
+                      Center(
+                        child: Container(
+                          width:
+                              160, // Adjust the width to control text wrapping
+                          child: Text(
+                            'DELIVERED TO YOU',
+                            textAlign: TextAlign
+                                .center, // Centers the text within the container
+                            style: GoogleFonts.openSans(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                      //  GET STARTED BUTTON
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
                         child: GestureDetector(
-                          // IN THIS PART FIREBASE SETUP
                           onTap: () {
-                            // Action when the button is tapped
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginPage(),
+                                ));
                           },
                           child: Container(
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              color: Color.fromARGB(255, 255, 220, 183),
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black26, 
-                                  offset: Offset(0, 10), 
+                                  color: Colors.black26,
+                                  offset: Offset(0, 10),
                                   blurRadius: 15, // Softness of the shadow
-                                  spreadRadius: 5, // How much the shadow spreads
+                                  spreadRadius:
+                                      5, // How much the shadow spreads
                                 ),
                               ],
                             ),
@@ -239,7 +263,7 @@ class _ScopeState extends State<Scope> {
                           ),
                         ),
                       ),
-                     SizedBox(height: 60), 
+                      SizedBox(height: 60),
                     ],
                   ),
                 ),

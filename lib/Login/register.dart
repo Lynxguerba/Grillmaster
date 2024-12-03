@@ -5,34 +5,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:grillmaster/Login/register.dart';
+import 'package:grillmaster/Login/login.dart';
 
-// Import the WelcomePage
-
-// void main() async {
-//     runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: LoginPage(),
-//     );
-//   }
-// }
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Register> createState() => _Register();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _Register extends State<Register> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   @override
@@ -46,18 +28,10 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/icons/app-icon.png',
+                  'assets/images/register.png',
                   width: 300,
-                  height: 200,
+                  height: 300,
                 ),
-                SizedBox(height: 30),
-                // Text(
-                //   'Welcome! We\'re glad you\'re here!',
-                //   style: TextStyle(fontSize: 20),
-                // ),
-                // SizedBox(height: 50),
-
-                // TEXT FIELD EMAIL
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextField(
@@ -122,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Center(
                         child: Text(
-                          'Sign In',
+                          'Sign Up',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -140,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Have no Account?',
+                      'Already have an Account?',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
@@ -148,11 +122,11 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Register()));
-                        print("Register button tapped!");
+                                builder: (context) => LoginPage()));
+                        print("Login button tapped!");
                       },
                       child: Text(
-                        ' Register Now!',
+                        ' Login!',
                         style: TextStyle(
                           color: Color.fromARGB(255, 255, 95, 27),
                           fontWeight: FontWeight.bold,
@@ -164,28 +138,6 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 40,
                 ),
-                // GOOGLE LOG IN
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.white,
-                      minimumSize:
-                          Size(double.infinity, 70), // Increase the height here
-                    ),
-                    icon: FaIcon(
-                      FontAwesomeIcons.google,
-                      color: const Color.fromARGB(255, 0, 133, 250),
-                    ),
-                    label: Text(
-                      'Continue with Google',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    onPressed: () {},
-                    // onPressed: signIn,
-                  ),
-                )
               ],
             ),
           ),
@@ -193,17 +145,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-  // Future signIn() async {
-  //   final user = await GoogleSignInApi.login();
-
-  //   if (user == null) {
-  //     ScaffoldMessenger.of(context)
-  //         .showSnackBar(SnackBar(content: Text('No user is signed in.')));
-  //   } else {
-  //     // Pass the 'user' object to the WelcomePage
-  //     Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(builder: (context) => WelcomePage(user: user)));
-  //   }
-  // }
 }
