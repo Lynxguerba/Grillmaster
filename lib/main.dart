@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Grillmaster',
       debugShowCheckedModeBanner: false,
-      home: Scope(title: 'Grillmaster',),
+      home: Scope(),
     );
   }
 }

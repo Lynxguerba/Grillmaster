@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grillmaster/Login/login.dart';
+import 'package:grillmaster/Pages/welcome.dart';
 // import 'package:grillmaster/Login/login.dart';
 
 class Scope extends StatefulWidget {
-  const Scope({super.key, required this.title});
+  const Scope({super.key});
 
-  final String title;
 
   @override
   State<Scope> createState() => _ScopeState();
@@ -202,11 +202,12 @@ class _ScopeState extends State<Scope> {
                     ),
                 child: Center(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min, 
                     children: [
                       Image.asset(
                         'assets/images/delivery.png',
-                        width: 500,
-                        height: 455,
+                        width: 300,
+                        height: 440,
                       ),
                       Center(
                         child: Container(
@@ -233,7 +234,7 @@ class _ScopeState extends State<Scope> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LoginPage(),
+                                  builder: (context) => Welcome(),
                                 ));
                           },
                           child: Container(

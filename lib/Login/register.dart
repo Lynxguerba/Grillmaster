@@ -44,6 +44,7 @@ class _Register extends State<Register> {
                           borderSide: BorderSide(color: Colors.black),
                           borderRadius: BorderRadius.circular(12)),
                       hintText: 'Email',
+                      hintStyle: GoogleFonts.openSans(),
                       fillColor: Colors.grey[200],
                       filled: true,
                     ),
@@ -65,6 +66,7 @@ class _Register extends State<Register> {
                           borderSide: BorderSide(color: Colors.black),
                           borderRadius: BorderRadius.circular(12)),
                       hintText: 'Password',
+                      hintStyle: GoogleFonts.openSans(),
                       fillColor: Colors.grey[200],
                       filled: true,
                     ),
@@ -97,7 +99,7 @@ class _Register extends State<Register> {
                       child: Center(
                         child: Text(
                           'Sign Up',
-                          style: TextStyle(
+                          style: GoogleFonts.openSans(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
@@ -115,7 +117,7 @@ class _Register extends State<Register> {
                   children: [
                     Text(
                       'Already have an Account?',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: GoogleFonts.openSans(fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -126,8 +128,8 @@ class _Register extends State<Register> {
                         print("Login button tapped!");
                       },
                       child: Text(
-                        ' Login!',
-                        style: TextStyle(
+                        ' Sign In!',
+                        style: GoogleFonts.openSans(
                           color: Color.fromARGB(255, 255, 95, 27),
                           fontWeight: FontWeight.bold,
                         ),

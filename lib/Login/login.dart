@@ -6,24 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grillmaster/Login/register.dart';
-
-// Import the WelcomePage
-
-// void main() async {
-//     runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: LoginPage(),
-//     );
-//   }
-// }
+import 'package:grillmaster/Pages/welcome.dart';
+import 'package:grillmaster/WelcomeScope/scope.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -39,11 +23,25 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
+      appBar: AppBar(
+        backgroundColor: Colors.grey[300],
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Scope()));
+          },
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                   'assets/icons/app-icon.png',
@@ -70,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderSide: BorderSide(color: Colors.black),
                           borderRadius: BorderRadius.circular(12)),
                       hintText: 'Email',
+                      hintStyle: GoogleFonts.openSans(),
                       fillColor: Colors.grey[200],
                       filled: true,
                     ),
@@ -91,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderSide: BorderSide(color: Colors.black),
                           borderRadius: BorderRadius.circular(12)),
                       hintText: 'Password',
+                      hintStyle: GoogleFonts.openSans(),
                       fillColor: Colors.grey[200],
                       filled: true,
                     ),
@@ -103,7 +103,8 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
                     onTap: () async {
-                      // Your Firebase setup logic here
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Welcome()));
                       print("Sign In button tapped!");
                     },
                     child: Container(
@@ -123,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Center(
                         child: Text(
                           'Sign In',
-                          style: TextStyle(
+                          style: GoogleFonts.openSans(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
@@ -141,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       'Have no Account?',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: GoogleFonts.openSans(fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -153,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Text(
                         ' Register Now!',
-                        style: TextStyle(
+                        style: GoogleFonts.openSans(
                           color: Color.fromARGB(255, 255, 95, 27),
                           fontWeight: FontWeight.bold,
                         ),
@@ -180,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     label: Text(
                       'Continue with Google',
-                      style: TextStyle(fontSize: 18),
+                      style: GoogleFonts.openSans(fontSize: 18),
                     ),
                     onPressed: () {},
                     // onPressed: signIn,

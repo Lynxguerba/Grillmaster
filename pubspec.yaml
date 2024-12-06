@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^6.2.1
   font_awesome_flutter: ^10.4.0
+  smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:
   flutter_test:
@@ -72,11 +73,20 @@ flutter:
     # ImAGES
     - assets/images/bg.jpg
     - assets/images/Frame-bg.png
+    - assets/images/frame-bg-1.1.png
     - assets/images/app-intro.png
     - assets/images/app-intro1.png
     - assets/images/app-intro1.png
     - assets/images/delivery.png
     - assets/images/register.png
+    - assets/images/classic-bbq.png
+    - assets/images/seafood-bbq.jpg
+    - assets/images/saucy-bbq.png
+    - assets/images/pork-chop.jpg
+    - assets/images/chicken-wing.jpg
+    - assets/images/bangus.jpg
+    - assets/images/grill-prawns.jpg
+    - assets/images/bbq-meatballs.jpg
     # ICONS
     - assets/icons/app-icon.png
   #   - images/a_dot_ham.jpeg
