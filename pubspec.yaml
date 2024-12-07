@@ -95,6 +95,7 @@ flutter:
     - assets/menu/classic/chicken-wing.jpg
     - assets/menu/classic/pork-chop.jpg
     - assets/menu/classic/isaw.jpg
+    - assets/menu/classic/proben.jpg
     # SEAFOOD BBQ
     - assets/menu/seafood/bangus.jpg
     - assets/menu/seafood/grill-prawns.jpg
@@ -105,6 +106,7 @@ flutter:
     - assets/menu/saucy/longanisa.jpg
     - assets/menu/saucy/meatballs.jpg
     - assets/menu/saucy/spareribs.png
+    - assets/menu/saucy/spareribs.jpg
     # ICONS
     - assets/icons/app-icon.png
     - assets/icons/profile.png

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grillmaster/FoodDetail/fooddetail.dart';
 import 'package:grillmaster/Pages/cart.dart';
 import 'package:grillmaster/Pages/profile.dart';
 import 'package:grillmaster/Pages/welcome.dart';
@@ -46,6 +47,11 @@ class _FoodState extends State<Food> {
       'price': '₱1,200',
       'image': 'assets/menu/classic/pork-chop.jpg'
     },
+    {
+      'name': 'Proben',
+      'price': '₱1,200',
+      'image': 'assets/menu/classic/proben.jpg'
+    },
   ];
 
   final List<Map<String, String>> seafoods = [
@@ -59,11 +65,7 @@ class _FoodState extends State<Food> {
       'price': '₱250',
       'image': 'assets/menu/seafood/bangus.jpg'
     },
-    {
-      'name': 'Hito',
-      'price': '₱300',
-      'image': 'assets/menu/seafood/hito.jpg'
-    },
+    {'name': 'Hito', 'price': '₱300', 'image': 'assets/menu/seafood/hito.jpg'},
     {
       'name': 'Tambakol',
       'price': '₱250',
@@ -90,7 +92,7 @@ class _FoodState extends State<Food> {
     {
       'name': 'Spareribs',
       'price': '₱200',
-      'image': 'assets/menu/saucy/spareribs.png'
+      'image': 'assets/menu/saucy/spareribs.jpg'
     },
   ];
 
@@ -115,7 +117,7 @@ class _FoodState extends State<Food> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Welcome()));
           },
         ),
         title: Text(
@@ -126,6 +128,17 @@ class _FoodState extends State<Food> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.favorite_border,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              print('Favorite Food Added!');
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -202,58 +215,73 @@ class _FoodState extends State<Food> {
                 ),
                 itemCount: displayItems.length,
                 itemBuilder: (context, index) {
-                  final item = displayItems[index];
-                  return Container(
-                    height: 250, // Set the height here
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                    final item = displayItems[index];
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to the food detail page with the selected item data
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FoodDetail(
+                              name: item['name']!,
+                              price: item['price']!,
+                              image: item['image']!,
+                              description:
+                                  'This is a detailed description of ${item['name']}.',
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 250, // Set the height here
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          elevation: 3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(height: 10),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  item['image']!,
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                item['name']!,
+                                style: GoogleFonts.openSans(
+                                    fontWeight: FontWeight.bold, fontSize: 14),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                item['price']!,
+                                style: GoogleFonts.openSans(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Expanded(
+                                child: IconButton(
+                                  icon: Icon(Icons.favorite_border,
+                                      color: Colors.orange),
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      elevation: 3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.asset(
-                              item['image']!,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            item['name']!,
-                            style: GoogleFonts.openSans(
-                                fontWeight: FontWeight.bold, fontSize: 14),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            item['price']!,
-                            style: GoogleFonts.openSans(
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Expanded(
-                            // Add this to make the remaining space flexible
-                            child: IconButton(
-                              icon: Icon(Icons.favorite_border,
-                                  color: Colors.orange),
-                              onPressed: () {},
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+                    );
+                  }
+
               ),
             ),
           ],
