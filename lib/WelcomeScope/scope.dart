@@ -8,7 +8,6 @@ import 'package:grillmaster/Pages/welcome.dart';
 class Scope extends StatefulWidget {
   const Scope({super.key});
 
-
   @override
   State<Scope> createState() => _ScopeState();
 }
@@ -194,79 +193,112 @@ class _ScopeState extends State<Scope> {
               ),
               // SCOPE Page 3
               Container(
-                decoration: BoxDecoration(
-                    // image: DecorationImage(
-                    //   image: AssetImage('assets/images/Frame-bg.png'),
-                    //   fit: BoxFit.cover,
-                    // ),
-                    ),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min, 
-                    children: [
-                      Image.asset(
-                        'assets/images/delivery.png',
-                        width: 300,
-                        height: 440,
-                      ),
-                      Center(
-                        child: Container(
-                          width:
-                              160, // Adjust the width to control text wrapping
-                          child: Text(
-                            'DELIVERED TO YOU',
-                            textAlign: TextAlign
-                                .center, // Centers the text within the container
-                            style: GoogleFonts.openSans(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                          ),
+                child: Stack(
+                  children: [
+                    // Background Image
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                              'assets/images/scope-bg1.jpg'), // Replace with your desired image path
+                          fit: BoxFit
+                              .cover, // Ensures the image covers the entire container
                         ),
                       ),
-                      SizedBox(height: 25),
-                      //  GET STARTED BUTTON
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Welcome(),
-                                ));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 255, 220, 183),
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  offset: Offset(0, 10),
-                                  blurRadius: 15, // Softness of the shadow
-                                  spreadRadius:
-                                      5, // How much the shadow spreads
-                                ),
-                              ],
-                            ),
-                            child: Center(
+                    ),
+                    // Semi-Transparent Overlay
+                    Container(
+                      color: Colors.black.withOpacity(
+                          0.6), // Adjust opacity as needed (0.0 - 1.0)
+                    ),
+                    // Content Layer
+                    Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: 300,
+                          ),
+                          Center(
+                            child: Container(
+                              width:
+                                  300, // Adjust the width to control text wrapping
                               child: Text(
-                                'GET STARTED!',
+                                'DELIVERED TO YOU',
+                                textAlign: TextAlign
+                                    .center, // Centers the text within the container
                                 style: GoogleFonts.openSans(
+                                  fontSize: 30,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                          SizedBox(height: 5),
+                          Center(
+                            child: Container(
+                              width:
+                                  250, // Adjust width to control text wrapping
+                              child: Text(
+                                'Freshly grilled and delivered hot, satisfying your cravings anytime!',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.openSans(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors
+                                      .white, // Slightly lighter shade for subtitle
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 25),
+                          // GET STARTED BUTTON
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 50.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Welcome(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange,
+                                  borderRadius: BorderRadius.circular(30),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      offset: Offset(0, 10),
+                                      blurRadius: 15, // Softness of the shadow
+                                      spreadRadius:
+                                          5, // How much the shadow spreads
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'GET STARTED!',
+                                    style: GoogleFonts.openSans(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 60),
+                        ],
                       ),
-                      SizedBox(height: 60),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

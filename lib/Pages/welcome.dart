@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,20 +16,96 @@ class Welcome extends StatefulWidget {
 
 class _WelcomeState extends State<Welcome> {
   final PageController _pageController =
-      PageController(); // PageView controller
+      PageController();
+       // PageView controller
   int _currentIndex = 0;
 
-   final List<Widget> _pages = [
+  final List<Widget> _pages = [
     Welcome(),
     Food(),
     Cart(),
     Profile(),
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   title: Text(''),
+      //   backgroundColor: Colors.transparent,
+      // ),
+      // drawer: Drawer(
+      //   child: Container(
+      //     color: Colors.orange,
+      //     child: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       children: [
+      //         // User Profile Section
+      //         DrawerHeader(
+      //           child: Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             children: [
+      //               CircleAvatar(
+      //                 radius: 40,
+      //                 backgroundImage: NetworkImage(
+      //                   'https://example.com/your-profile-pic.jpg', // Replace with your image URL
+      //                 ),
+      //               ),
+      //               SizedBox(height: 10),
+      //               Text(
+      //                 'Chinwe Uzegbu',
+      //                 style: TextStyle(
+      //                   color: Colors.white,
+      //                   fontSize: 18,
+      //                   fontWeight: FontWeight.bold,
+      //                 ),
+      //               ),
+      //               Text(
+      //                 '[czuzegbu@gmail.com]',
+      //                 style: TextStyle(
+      //                   color: Colors.white70,
+      //                   fontSize: 14,
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //         // Menu Items
+      //         ListTile(
+      //           leading: Icon(Icons.person, color: Colors.white),
+      //           title: Text('Profile', style: TextStyle(color: Colors.white)),
+      //           onTap: () {},
+      //         ),
+      //         ListTile(
+      //           leading: Icon(Icons.shopping_cart, color: Colors.white),
+      //           title: Text('My Orders', style: TextStyle(color: Colors.white)),
+      //           onTap: () {},
+      //         ),
+      //         ListTile(
+      //           leading: Icon(Icons.policy, color: Colors.white),
+      //           title: Text('Privacy Policy',
+      //               style: TextStyle(color: Colors.white)),
+      //           onTap: () {},
+      //         ),
+      //         ListTile(
+      //           leading: Icon(Icons.settings, color: Colors.white),
+      //           title: Text('Settings', style: TextStyle(color: Colors.white)),
+      //           onTap: () {},
+      //         ),
+      //         ListTile(
+      //           leading: Icon(Icons.help, color: Colors.white),
+      //           title: Text('Help', style: TextStyle(color: Colors.white)),
+      //           onTap: () {},
+      //         ),
+      //         ListTile(
+      //           leading: Icon(Icons.logout, color: Colors.white),
+      //           title: Text('Sign Out', style: TextStyle(color: Colors.white)),
+      //           onTap: () {},
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: Stack(
         children: [
           // Static Background Image
@@ -113,6 +189,10 @@ class _WelcomeState extends State<Welcome> {
                                   ),
                                 ),
                                 onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Food())
+                                  );
                                   print('Order Now button pressed!');
                                 },
                                 child: Text(
@@ -183,20 +263,20 @@ class _WelcomeState extends State<Welcome> {
                         ),
                       ),
                       SizedBox(height: 16),
-                      buildFoodItem("Smoke then BBQ", "Savory Grilled Perfection",
+                      buildFoodItem("Pork Chop", "Savory Grilled Perfection",
                           "80.00", "32min", 'assets/images/pork-chop.jpg'),
                       SizedBox(height: 16),
-                      buildFoodItem("Chicken Wings", "Spicy, Juicy, Crispy", "50.00",
-                          "30min", 'assets/images/chicken-wing.jpg'),
+                      buildFoodItem("Chicken Wings", "Spicy, Juicy, Crispy",
+                          "50.00", "30min", 'assets/images/chicken-wing.jpg'),
                       SizedBox(height: 16),
                       buildFoodItem("Bangus", "Delicate, Smoky, Zesty", "75.00",
                           "25min", 'assets/images/bangus.jpg'),
                       SizedBox(height: 16),
-                      buildFoodItem("Grilled Prawns", "Succulent and Savory", "40.00",
-                          "20min", 'assets/images/grill-prawns.jpg'),
+                      buildFoodItem("Grilled Prawns", "Succulent and Savory",
+                          "40.00", "20min", 'assets/images/grill-prawns.jpg'),
                       SizedBox(height: 16),
-                      buildFoodItem("BBQ Meatballs", "Juicy and Glazed", "50.00",
-                          "18min", 'assets/images/bbq-meatballs.jpg'),
+                      buildFoodItem("BBQ Meatballs", "Juicy and Glazed",
+                          "50.00", "18min", 'assets/images/bbq-meatballs.jpg'),
                     ],
                   ),
                 ),

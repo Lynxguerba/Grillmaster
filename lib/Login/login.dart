@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grillmaster/Login/register.dart';
+import 'package:grillmaster/Pages/profile.dart';
 import 'package:grillmaster/Pages/welcome.dart';
 import 'package:grillmaster/WelcomeScope/scope.dart';
 
@@ -33,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Scope()));
+                context, MaterialPageRoute(builder: (context) => Profile()));
           },
         ),
       ),

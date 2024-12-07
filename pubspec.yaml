@@ -87,8 +87,27 @@ flutter:
     - assets/images/bangus.jpg
     - assets/images/grill-prawns.jpg
     - assets/images/bbq-meatballs.jpg
+    - assets/images/scope-bg.jpg
+    - assets/images/scope-bg1.jpg
+
+    # CLASSIC BBQ
+    - assets/menu/classic/betamax.jpg
+    - assets/menu/classic/chicken-wing.jpg
+    - assets/menu/classic/pork-chop.jpg
+    - assets/menu/classic/isaw.jpg
+    # SEAFOOD BBQ
+    - assets/menu/seafood/bangus.jpg
+    - assets/menu/seafood/grill-prawns.jpg
+    - assets/menu/seafood/hito.jpg
+    - assets/menu/seafood/tambakol.jpg
+    # SAUCY BBQ
+    - assets/menu/saucy/liempo.jpg
+    - assets/menu/saucy/longanisa.jpg
+    - assets/menu/saucy/meatballs.jpg
+    - assets/menu/saucy/spareribs.png
     # ICONS
     - assets/icons/app-icon.png
+    - assets/icons/profile.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
