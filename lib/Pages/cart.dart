@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:grillmaster/Controller/cartmodel.dart';
+import 'package:grillmaster/Payment/deliver.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart'; // Import the CartModel
 import 'package:grillmaster/Pages/foods.dart';
@@ -260,7 +261,13 @@ class _CartState extends State<Cart> {
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                         Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Deliver()),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
                         shape: RoundedRectangleBorder(

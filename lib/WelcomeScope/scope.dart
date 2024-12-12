@@ -262,7 +262,7 @@ class _ScopeState extends State<Scope> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Welcome(),
+                                    builder: (context) => LoginPage(),
                                   ),
                                 );
                               },

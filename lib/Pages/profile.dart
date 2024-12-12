@@ -49,17 +49,15 @@ class _ProfileState extends State<Profile> {
                 children: [
                   SizedBox(height: 60),
                   Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 10,
-                          offset: Offset(0,5),
-                        ),
-                      ]
-                    ),
+                    decoration:
+                        BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
+                    ]),
                     child: CircleAvatar(
                       radius: 50,
                       backgroundColor: Colors.grey[200],
@@ -73,23 +71,23 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ), // For spacing
-                  
+
                   SizedBox(height: 20),
                   ProfileInfoTile(
                     icon: Icons.person,
-                    text: 'Ahmed',
+                    text: 'User Name',
                   ),
                   ProfileInfoTile(
                     icon: Icons.phone,
-                    text: '13761849017',
+                    text: ' ',
                   ),
                   ProfileInfoTile(
                     icon: Icons.email,
-                    text: 'info@dbestech.com',
+                    text: ' ',
                   ),
                   ProfileInfoTile(
                     icon: Icons.location_on,
-                    text: 'Fill in the address',
+                    text: ' ',
                   ),
                   SizedBox(height: 10),
                   // SETTINGS
