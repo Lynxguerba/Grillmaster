@@ -46,119 +46,252 @@ class _CartState extends State<Cart> {
           ),
         ),
         centerTitle: true,
-      ),
-      body: Stack(
-        children: [
-          // Background
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/frame-bg-1.1.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          // Cart Items
-          Positioned.fill(
-            child: Consumer<CartModel>(
-              builder: (context, cartModel, child) {
-                final cartItems = cartModel.cartItems;
-
-                if (cartItems.isEmpty) {
-                  return Center(
-                    child: Text(
-                      'Your cart is empty.',
-                      style: GoogleFonts.openSans(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete, color: Colors.red),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text('Clear All Items'),
+                  content: Text(
+                      'Are you sure you want to clear all items from your cart?', style: GoogleFonts.openSans(),),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('Cancel',
+                        style: GoogleFonts.openSans(),
                       ),
                     ),
-                  );
-                }
-                return ListView.builder(
+                    TextButton(
+                      onPressed: () {
+                        Provider.of<CartModel>(context, listen: false)
+                            .clearCart();
+                        Navigator.pop(context);
+                      },
+                      child: Text('Clear',
+                        style: GoogleFonts.openSans(),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: Consumer<CartModel>(
+        builder: (context, cartModel, child) {
+          final cartItems = cartModel.cartItems;
+
+          if (cartItems.isEmpty) {
+            return Center(
+              child: Text(
+                'Your cart is empty.',
+                style: GoogleFonts.openSans(
+                  fontSize: 18,
+                  color: Colors.grey
+                ),
+              ),
+            );
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
                   itemCount: cartItems.length,
                   itemBuilder: (context, index) {
                     final item = cartItems[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 5.0),
+                          horizontal: 16.0, vertical: 8.0),
                       child: Card(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                        child: Column(
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
                           children: [
+                            // Item Image
                             ClipRRect(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(
-                                      10)), // Rounded corners for the top
+                              borderRadius: BorderRadius.horizontal(
+                                  left: Radius.circular(10)),
                               child: Image.asset(
                                 item['image'],
+                                width: 80,
+                                height: 80,
                                 fit: BoxFit.cover,
-                                width:
-                                    double.infinity, // Full width of the card
-                                height:
-                                    100, // Adjust the height to your preference
                               ),
                             ),
-                            ListTile(
-                              title: Text(
-                                item['name'],
-                                style: GoogleFonts.openSans(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              subtitle: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Text(
+                                    item['name'],
+                                    style: GoogleFonts.openSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
                                   Text(
                                     '₱${item['totalPrice'].toStringAsFixed(2)}',
                                     style: GoogleFonts.openSans(
-                                      fontSize: 16,
+                                      fontSize: 12,
                                       color: Colors.green,
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    '${item['quantity']}x',
-                                    style: GoogleFonts.openSans(
-                                      fontSize: 16,
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
                               ),
-                              trailing: IconButton(
-                                icon: Icon(Icons.delete, color: Colors.red),
-                                onPressed: () {
-                                  cartModel.removeItem(index);
-                                },
+                            ),
+                            // Quantity Control
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 1,
+                                vertical: 2,
                               ),
+                              decoration: BoxDecoration(
+                                color: Colors.orange.shade100,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.remove,
+                                        color: Colors.orange),
+                                    onPressed: () {
+                                      cartModel.updateQuantity(
+                                          index, item['quantity'] - 1);
+                                    },
+                                  ),
+                                  Text(
+                                    '${item['quantity']}',
+                                    style: GoogleFonts.openSans(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.add, color: Colors.orange),
+                                    onPressed: () {
+                                      cartModel.updateQuantity(
+                                          index, item['quantity'] + 1);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.close, color: Colors.red),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: Text(
+                                      'Remove Item',
+                                      style: GoogleFonts.openSans(),
+                                    ),
+                                    content: Text(
+                                      'Are you sure you want to remove this item from your cart?',
+                                      style: GoogleFonts.openSans(),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          'Cancel',
+                                          style: GoogleFonts.openSans(),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          cartModel.removeItem(index);
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          'Remove',
+                                          style: GoogleFonts.openSans(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
                       ),
                     );
-
                   },
-                );
-              },
-            ),
-          ),
-        ],
+                ),
+              ),
+              // Total Price and Checkout
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Total Price:',
+                          style: GoogleFonts.openSans(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '₱${cartModel.totalPrice.toStringAsFixed(2)}',
+                          style: GoogleFonts.openSans(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text(
+                        'Checkout',
+                        style: GoogleFonts.openSans(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => _pages[index]),
-          );
-          print("Navigated to index: $index");
+          if (index != _currentIndex) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => _pages[index]),
+            );
+          }
         },
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.orange,
@@ -166,19 +299,19 @@ class _CartState extends State<Cart> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: '', // Empty label
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant_menu),
-            label: '', // Empty label
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
-            label: '', // Empty label
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: '', // Empty label
+            label: '',
           ),
         ],
       ),
