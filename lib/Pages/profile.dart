@@ -6,6 +6,7 @@ import 'package:grillmaster/Login/login.dart';
 import 'package:grillmaster/Pages/cart.dart';
 import 'package:grillmaster/Pages/foods.dart';
 import 'package:grillmaster/Pages/welcome.dart';
+import 'package:grillmaster/WelcomeScope/scope.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -141,7 +142,7 @@ class _ProfileState extends State<Profile> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginPage(),
+                              builder: (context) => Scope(),
                             ));
                       },
                       child: SizedBox(

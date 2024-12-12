@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grillmaster/Controller/fooddetail.dart';
 import 'package:grillmaster/Pages/cart.dart';
 import 'package:grillmaster/Pages/foods.dart';
 import 'package:grillmaster/Pages/profile.dart';
@@ -15,9 +16,8 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-  final PageController _pageController =
-      PageController();
-       // PageView controller
+  final PageController _pageController = PageController();
+  // PageView controller
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
@@ -190,9 +190,9 @@ class _WelcomeState extends State<Welcome> {
                                 ),
                                 onPressed: () {
                                   Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Food())
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Food()));
                                   print('Order Now button pressed!');
                                 },
                                 child: Text(
@@ -264,19 +264,34 @@ class _WelcomeState extends State<Welcome> {
                       ),
                       SizedBox(height: 16),
                       buildFoodItem("Pork Chop", "Savory Grilled Perfection",
-                          "80.00", "32min", 'assets/images/pork-chop.jpg'),
+                          "80.00", "32min", 'assets/images/pork-chop.jpg', 5),
                       SizedBox(height: 16),
-                      buildFoodItem("Chicken Wings", "Spicy, Juicy, Crispy",
-                          "50.00", "30min", 'assets/images/chicken-wing.jpg'),
+                      buildFoodItem(
+                          "Chicken Wings",
+                          "Spicy, Juicy, Crispy",
+                          "50.00",
+                          "30min",
+                          'assets/images/chicken-wing.jpg',
+                          5),
                       SizedBox(height: 16),
                       buildFoodItem("Bangus", "Delicate, Smoky, Zesty", "75.00",
-                          "25min", 'assets/images/bangus.jpg'),
+                          "25min", 'assets/images/bangus.jpg', 5),
                       SizedBox(height: 16),
-                      buildFoodItem("Grilled Prawns", "Succulent and Savory",
-                          "40.00", "20min", 'assets/images/grill-prawns.jpg'),
+                      buildFoodItem(
+                          "Grilled Prawns",
+                          "Succulent and Savory",
+                          "40.00",
+                          "20min",
+                          'assets/images/grill-prawns.jpg',
+                          5),
                       SizedBox(height: 16),
-                      buildFoodItem("BBQ Meatballs", "Juicy and Glazed",
-                          "50.00", "18min", 'assets/images/bbq-meatballs.jpg'),
+                      buildFoodItem(
+                          "BBQ Meatballs",
+                          "Juicy and Glazed",
+                          "50.00",
+                          "18min",
+                          'assets/images/bbq-meatballs.jpg',
+                          5),
                     ],
                   ),
                 ),
@@ -414,83 +429,99 @@ class _WelcomeState extends State<Welcome> {
   }
 
   Widget buildFoodItem(String title, String subtitle, String price, String time,
-      String imageUrl) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            offset: Offset(0, 2),
-            blurRadius: 5,
-            spreadRadius: 1,
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              imageUrl,
-              height: 70,
-              width: 70,
-              fit: BoxFit.cover,
+      String imageUrl, int rating) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FoodDetail(
+              name: title,
+              price: price,
+              image: imageUrl,
+              description: subtitle,
+              rating: rating, // Pass the description as the subtitle
             ),
           ),
-          SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: GoogleFonts.roboto(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  subtitle,
-                  style: GoogleFonts.roboto(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              offset: Offset(0, 2),
+              blurRadius: 5,
+              spreadRadius: 1,
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                "₱$price",
-                style: GoogleFonts.roboto(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                ),
+          ],
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                imageUrl,
+                height: 70,
+                width: 70,
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: 5),
-              Row(
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.access_time, color: Colors.red, size: 14),
-                  SizedBox(width: 3),
                   Text(
-                    time,
+                    title,
                     style: GoogleFonts.roboto(
-                      fontSize: 12,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    subtitle,
+                    style: GoogleFonts.roboto(
+                      fontSize: 14,
                       color: Colors.grey,
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
-        ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  "₱$price",
+                  style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Row(
+                  children: [
+                    Icon(Icons.access_time, color: Colors.red, size: 14),
+                    SizedBox(width: 3),
+                    Text(
+                      time,
+                      style: GoogleFonts.roboto(
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
