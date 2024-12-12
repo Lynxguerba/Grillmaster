@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:grillmaster/Controller/cartmodel.dart';
@@ -46,7 +46,6 @@ class _CartState extends State<Cart> {
           ),
         ),
         centerTitle: true,
-        
       ),
       body: Stack(
         children: [
@@ -76,46 +75,72 @@ class _CartState extends State<Cart> {
                     ),
                   );
                 }
-
                 return ListView.builder(
                   itemCount: cartItems.length,
                   itemBuilder: (context, index) {
                     final item = cartItems[index];
-                    return Card(
-                      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.orange,
-                          child: Text(
-                            '${item['quantity']}x',
-                            style: GoogleFonts.openSans(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 5.0),
+                      child: Card(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(
+                                      10)), // Rounded corners for the top
+                              child: Image.asset(
+                                item['image'],
+                                fit: BoxFit.cover,
+                                width:
+                                    double.infinity, // Full width of the card
+                                height:
+                                    100, // Adjust the height to your preference
+                              ),
                             ),
-                          ),
-                        ),
-                        title: Text(
-                          item['name'],
-                          style: GoogleFonts.openSans(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        subtitle: Text(
-                          '₱${item['totalPrice'].toStringAsFixed(2)}',
-                          style: GoogleFonts.openSans(
-                            fontSize: 14,
-                            color: Colors.green,
-                          ),
-                        ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            cartModel.removeItem(index);
-                          },
+                            ListTile(
+                              title: Text(
+                                item['name'],
+                                style: GoogleFonts.openSans(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '₱${item['totalPrice'].toStringAsFixed(2)}',
+                                    style: GoogleFonts.openSans(
+                                      fontSize: 16,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    '${item['quantity']}x',
+                                    style: GoogleFonts.openSans(
+                                      fontSize: 16,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              trailing: IconButton(
+                                icon: Icon(Icons.delete, color: Colors.red),
+                                onPressed: () {
+                                  cartModel.removeItem(index);
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     );
+
                   },
                 );
               },

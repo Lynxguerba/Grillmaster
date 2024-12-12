@@ -15,7 +15,7 @@ class Favorite extends StatelessWidget {
         title: Text(
           'Favorites',
           style:
-              GoogleFonts.openSans(fontSize: 20, fontWeight: FontWeight.bold),
+              GoogleFonts.openSans(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.orange,

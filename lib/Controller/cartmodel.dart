@@ -10,7 +10,7 @@ class CartModel extends ChangeNotifier {
   List<Map<String, dynamic>> get favorites => List.unmodifiable(_favorites);
 
   // Add item to the cart
-  void addToCart(String name, double totalPrice, int quantity) {
+  void addToCart(String name, double totalPrice, int quantity, String image) {
     // Check if the item already exists in the cart
     final index = _cartItems.indexWhere((item) => item['name'] == name);
     if (index != -1) {
@@ -19,11 +19,12 @@ class CartModel extends ChangeNotifier {
       _cartItems[index]['totalPrice'] =
           (_cartItems[index]['quantity'] * (totalPrice / quantity));
     } else {
-      // If the item doesn't exist, add a new entry
+      // If the item doesn't exist, add a new entry with image
       _cartItems.add({
         'name': name,
         'totalPrice': totalPrice,
         'quantity': quantity,
+        'image': image, // Add image to the cart item
       });
     }
     notifyListeners();
@@ -52,7 +53,7 @@ class CartModel extends ChangeNotifier {
       _favorites.add({
         'name': name,
         'price': price,
-        'image': image,
+        'image': image, // Add image to favorites
         'description': description,
         'rating': rating,
       });

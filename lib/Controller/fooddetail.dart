@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grillmaster/Controller/cartmodel.dart';
@@ -32,6 +34,39 @@ class _FoodDetailState extends State<FoodDetail> {
       double.tryParse(widget.price.replaceAll(RegExp(r'[^\d.]'), '')) ?? 0.0;
 
   double get totalPrice => itemPrice * quantity;
+
+  List<Map<String, dynamic>> comments = [
+    {
+      'username': 'MsTeam',
+      'profileImage': 'assets/icons/profile.png',
+      'comment': 'Wow! Yummy BBQ, I love this one.',
+      'likes': 25,
+      'dislikes': 5,
+    },
+    {
+      'username': 'ExTRAMPS122222',
+      'profileImage': 'assets/icons/app-icon.png',
+      'comment': 'I think I need to order more, this is awesome!',
+      'likes': 12,
+      'dislikes': 2,
+    },
+  ];
+
+  final TextEditingController _commentController = TextEditingController();
+
+  // Function to add a new comment
+  void _addComment(String commentText) {
+    setState(() {
+      comments.add({
+        'username': 'NewUser', // Replace with dynamic user name if needed
+        'profileImage': 'assets/icons/profile.png',
+        'comment': commentText,
+        'likes': 0,
+        'dislikes': 0,
+      });
+    });
+    _commentController.clear(); // Clear the input field
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +147,7 @@ class _FoodDetailState extends State<FoodDetail> {
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
+                    // ignore: prefer_const_constructors
                     child: Icon(
                       Icons.arrow_back,
                       color: Colors.black,
@@ -122,7 +158,8 @@ class _FoodDetailState extends State<FoodDetail> {
               SliverList(
                 delegate: SliverChildListDelegate([
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, top: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -150,7 +187,7 @@ class _FoodDetailState extends State<FoodDetail> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.only(left: 16, right: 16, top: 2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -230,6 +267,128 @@ class _FoodDetailState extends State<FoodDetail> {
                       textAlign: TextAlign.justify,
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Comments',
+                          style: GoogleFonts.openSans(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        ...comments.map((comment) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CircleAvatar(
+                                  radius: 20,
+                                  backgroundImage:
+                                      AssetImage(comment['profileImage']),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        comment['username'],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        comment['comment'],
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            icon: Icon(
+                                                Icons.thumb_up_alt_outlined),
+                                            onPressed: () {
+                                              setState(() {
+                                                comment['likes']++;
+                                              });
+                                            },
+                                          ),
+                                          Text('${comment['likes']}'),
+                                          IconButton(
+                                            icon: Icon(
+                                                Icons.thumb_down_alt_outlined),
+                                            onPressed: () {
+                                              setState(() {
+                                                comment['dislikes']++;
+                                              });
+                                            },
+                                          ),
+                                          Text('${comment['dislikes']}'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CircleAvatar(
+                                radius: 20,
+                                backgroundImage:
+                                    AssetImage('assets/icons/profile.png'),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextField(
+                                      controller: _commentController,
+                                      decoration: InputDecoration(
+                                        hintText: 'Enter your comment...',
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        if (_commentController
+                                            .text.isNotEmpty) {
+                                          FocusScope.of(context)
+                                              .unfocus(); // Close keyboard
+                                          _addComment(_commentController.text);
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.orange,
+                                      ),
+                                      child: Text(
+                                        'Add Comment',
+                                        style: GoogleFonts.openSans(
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 100,
                   ),
@@ -267,10 +426,7 @@ class _FoodDetailState extends State<FoodDetail> {
                     onPressed: () {
                       // Add the item to the cart
                       Provider.of<CartModel>(context, listen: false).addToCart(
-                        widget.name,
-                        totalPrice,
-                        quantity,
-                      );
+                          widget.name, totalPrice, quantity, widget.image);
 
                       // Optional: Show a success message
                       ScaffoldMessenger.of(context).showSnackBar(
