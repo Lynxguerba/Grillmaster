@@ -98,7 +98,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(height: 10),
-
                 // SIGNIN BUTTON
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),

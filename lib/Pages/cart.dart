@@ -56,13 +56,16 @@ class _CartState extends State<Cart> {
                 builder: (context) => AlertDialog(
                   title: Text('Clear All Items'),
                   content: Text(
-                      'Are you sure you want to clear all items from your cart?', style: GoogleFonts.openSans(),),
+                    'Are you sure you want to clear all items from your cart?',
+                    style: GoogleFonts.openSans(),
+                  ),
                   actions: [
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text('Cancel',
+                      child: Text(
+                        'Cancel',
                         style: GoogleFonts.openSans(),
                       ),
                     ),
@@ -72,7 +75,8 @@ class _CartState extends State<Cart> {
                             .clearCart();
                         Navigator.pop(context);
                       },
-                      child: Text('Clear',
+                      child: Text(
+                        'Clear',
                         style: GoogleFonts.openSans(),
                       ),
                     ),
@@ -91,10 +95,7 @@ class _CartState extends State<Cart> {
             return Center(
               child: Text(
                 'Your cart is empty.',
-                style: GoogleFonts.openSans(
-                  fontSize: 18,
-                  color: Colors.grey
-                ),
+                style: GoogleFonts.openSans(fontSize: 18, color: Colors.grey),
               ),
             );
           }
@@ -245,14 +246,14 @@ class _CartState extends State<Cart> {
                         Text(
                           'Total Price:',
                           style: GoogleFonts.openSans(
-                            fontSize: 16,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           '₱${cartModel.totalPrice.toStringAsFixed(2)}',
                           style: GoogleFonts.openSans(
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.green,
                           ),
@@ -260,29 +261,13 @@ class _CartState extends State<Cart> {
                       ],
                     ),
                     SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Deliver()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: Text(
-                        'Checkout',
-                        style: GoogleFonts.openSans(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    _buildButton(context, "Proceed to Payment", Colors.orange,
+                        Colors.white, () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Deliver()),
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -321,6 +306,32 @@ class _CartState extends State<Cart> {
             label: '',
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildButton(BuildContext context, String text, Color bgColor,
+      Color textColor, VoidCallback onPressed) {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: bgColor,
+          foregroundColor: textColor,
+          side: BorderSide(color: Colors.orange),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: GoogleFonts.openSans(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, unnecessary_to_list_in_spreads
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -147,7 +147,7 @@ class _FoodDetailState extends State<FoodDetail> {
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
-                    // ignore: prefer_const_constructors
+
                     child: Icon(
                       Icons.arrow_back,
                       color: Colors.black,
