@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grillmaster/Controller/fooddetail.dart';
+import 'package:grillmaster/Controller/navigator.dart';
 import 'package:grillmaster/Pages/cart.dart';
 import 'package:grillmaster/Pages/foods.dart';
 import 'package:grillmaster/Pages/profile.dart';
@@ -30,85 +31,8 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(''),
-      //   backgroundColor: Colors.transparent,
-      // ),
-      // drawer: Drawer(
-      //   child: Container(
-      //     color: Colors.orange,
-      //     child: Column(
-      //       crossAxisAlignment: CrossAxisAlignment.start,
-      //       children: [
-      //         // User Profile Section
-      //         DrawerHeader(
-      //           child: Column(
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             children: [
-      //               CircleAvatar(
-      //                 radius: 40,
-      //                 backgroundImage: NetworkImage(
-      //                   'https://example.com/your-profile-pic.jpg', // Replace with your image URL
-      //                 ),
-      //               ),
-      //               SizedBox(height: 10),
-      //               Text(
-      //                 'Chinwe Uzegbu',
-      //                 style: TextStyle(
-      //                   color: Colors.white,
-      //                   fontSize: 18,
-      //                   fontWeight: FontWeight.bold,
-      //                 ),
-      //               ),
-      //               Text(
-      //                 '[czuzegbu@gmail.com]',
-      //                 style: TextStyle(
-      //                   color: Colors.white70,
-      //                   fontSize: 14,
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //         // Menu Items
-      //         ListTile(
-      //           leading: Icon(Icons.person, color: Colors.white),
-      //           title: Text('Profile', style: TextStyle(color: Colors.white)),
-      //           onTap: () {},
-      //         ),
-      //         ListTile(
-      //           leading: Icon(Icons.shopping_cart, color: Colors.white),
-      //           title: Text('My Orders', style: TextStyle(color: Colors.white)),
-      //           onTap: () {},
-      //         ),
-      //         ListTile(
-      //           leading: Icon(Icons.policy, color: Colors.white),
-      //           title: Text('Privacy Policy',
-      //               style: TextStyle(color: Colors.white)),
-      //           onTap: () {},
-      //         ),
-      //         ListTile(
-      //           leading: Icon(Icons.settings, color: Colors.white),
-      //           title: Text('Settings', style: TextStyle(color: Colors.white)),
-      //           onTap: () {},
-      //         ),
-      //         ListTile(
-      //           leading: Icon(Icons.help, color: Colors.white),
-      //           title: Text('Help', style: TextStyle(color: Colors.white)),
-      //           onTap: () {},
-      //         ),
-      //         ListTile(
-      //           leading: Icon(Icons.logout, color: Colors.white),
-      //           title: Text('Sign Out', style: TextStyle(color: Colors.white)),
-      //           onTap: () {},
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
       body: Stack(
         children: [
-          // Static Background Image
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -220,7 +144,6 @@ class _WelcomeState extends State<Welcome> {
                     ),
                   ),
                 ),
-
                 // Scrollable Cards Section
                 SizedBox(
                   height: 230, // Height for the cards
@@ -300,7 +223,7 @@ class _WelcomeState extends State<Welcome> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: ButtonNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -312,27 +235,6 @@ class _WelcomeState extends State<Welcome> {
           );
           print("Navigated to index: $index");
         },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '', // Empty label
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
-            label: '', // Empty label
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: '', // Empty label
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '', // Empty label
-          ),
-        ],
       ),
     );
   }

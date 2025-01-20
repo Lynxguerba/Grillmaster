@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:grillmaster/Controller/cartmodel.dart';
+import 'package:grillmaster/Controller/navigator.dart';
 import 'package:grillmaster/Payment/deliver.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart'; // Import the CartModel
@@ -275,37 +276,18 @@ class _CartState extends State<Cart> {
           );
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: ButtonNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
-          if (index != _currentIndex) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => _pages[index]),
-            );
-          }
+          setState(() {
+            _currentIndex = index;
+          });
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => _pages[index]),
+          );
+          print("Navigated to index: $index");
         },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '',
-          ),
-        ],
       ),
     );
   }

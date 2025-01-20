@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grillmaster/Controller/cartmodel.dart';
 import 'package:grillmaster/Pages/cart.dart';
 import 'package:grillmaster/Payment/ordersamary.dart';
+import 'package:provider/provider.dart';
 
 class Deliver extends StatefulWidget {
   const Deliver({super.key});
@@ -13,6 +15,22 @@ class Deliver extends StatefulWidget {
 }
 
 class _DeliverState extends State<Deliver> {
+  // TextEditingControllers to collect input
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Dispose controllers to free resources
+    nameController.dispose();
+    addressController.dispose();
+    cityController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,18 +84,16 @@ class _DeliverState extends State<Deliver> {
               ),
               const SizedBox(height: 10),
               // Input Fields
-              _buildTextField("Name"),
+              _buildTextField("Name", nameController),
               const SizedBox(height: 10),
-              _buildTextField("Address"),
+              _buildTextField("Address", addressController),
               const SizedBox(height: 10),
-              _buildTextField("City"),
+              _buildTextField("City", cityController),
               const SizedBox(height: 10),
-              _buildTextField("Phone"),
+              _buildTextField("Phone", phoneController),
               const SizedBox(height: 20),
-              
+
               const SizedBox(height: 10),
-              // Use Profile Details Section
-              
               const SizedBox(height: 30),
               // Proceed Button
               Center(
@@ -92,10 +108,43 @@ class _DeliverState extends State<Deliver> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Ordersamary()),
-                      );
+                      if (_areFieldsValid()) {
+                        final cartItems =
+                            Provider.of<CartModel>(context, listen: false)
+                                .cartItems;
+
+                        // Collect delivery details from text controllers
+                        final deliveryDetails = {
+                          'name': nameController.text,
+                          'address': addressController.text,
+                          'city': cityController.text,
+                          'phone': phoneController.text,
+                        };
+
+                        // Navigate to Order Summary and pass data
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Ordersamary(
+                              orderDetails: cartItems,
+                              deliveryDetails: deliveryDetails,
+                            ),
+                          ),
+                        );
+                      } else {
+                        // Show error if any field is empty
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Please fill in all fields!',
+                              style: GoogleFonts.openSans(
+                                color: Colors.white,
+                              ),
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     },
                     child: Text(
                       'Proceed',
@@ -116,8 +165,9 @@ class _DeliverState extends State<Deliver> {
   }
 
   // TextField Widget
-  Widget _buildTextField(String label) {
+  Widget _buildTextField(String label, TextEditingController controller) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         border: OutlineInputBorder(
@@ -125,5 +175,13 @@ class _DeliverState extends State<Deliver> {
         ),
       ),
     );
+  }
+
+  // Check if all fields are filled
+  bool _areFieldsValid() {
+    return nameController.text.isNotEmpty &&
+        addressController.text.isNotEmpty &&
+        cityController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty;
   }
 }

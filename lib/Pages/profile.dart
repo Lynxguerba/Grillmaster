@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grillmaster/Controller/navigator.dart';
+import 'package:grillmaster/History/orderhistory.dart';
 import 'package:grillmaster/Login/login.dart';
 import 'package:grillmaster/Pages/cart.dart';
 import 'package:grillmaster/Pages/foods.dart';
 import 'package:grillmaster/Pages/welcome.dart';
-import 'package:grillmaster/WelcomeScope/scope.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -132,6 +133,47 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OrderHistory(orderDetails: [],),
+                            ));
+                      },
+                      child: SizedBox(
+                        width: 800,
+                        height: 60,
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 224, 224, 224),
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                offset: Offset(0, 10),
+                                blurRadius: 15, // Softness of the shadow
+                                spreadRadius: 5, // How much the shadow spreads
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Order History',
+                              style: GoogleFonts.openSans(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   // LOG OUT BUTTON
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -180,7 +222,7 @@ class _ProfileState extends State<Profile> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: ButtonNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -192,27 +234,6 @@ class _ProfileState extends State<Profile> {
           );
           print("Navigated to index: $index");
         },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '', // Empty label
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
-            label: '', // Empty label
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: '', // Empty label
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '', // Empty label
-          ),
-        ],
       ),
     );
   }

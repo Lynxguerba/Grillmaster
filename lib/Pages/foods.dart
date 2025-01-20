@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grillmaster/Controller/favorite.dart';
 import 'package:grillmaster/Controller/fooddetail.dart';
+import 'package:grillmaster/Controller/navigator.dart';
 import 'package:grillmaster/Pages/cart.dart';
 import 'package:grillmaster/Pages/profile.dart';
 import 'package:grillmaster/Pages/welcome.dart';
@@ -352,7 +353,7 @@ class _FoodState extends State<Food> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: ButtonNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -364,27 +365,6 @@ class _FoodState extends State<Food> {
           );
           print("Navigated to index: $index");
         },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '', // Empty label
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
-            label: '', // Empty label
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: '', // Empty label
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '', // Empty label
-          ),
-        ],
       ),
     );
   }

@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grillmaster/Controller/cartmodel.dart';
 import 'package:grillmaster/Pages/welcome.dart';
 import 'package:grillmaster/Payment/ordersamary.dart';
+import 'package:provider/provider.dart';
 
 class Payment extends StatefulWidget {
   const Payment({super.key});
@@ -29,10 +31,7 @@ class _PaymentState extends State<Payment> {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Ordersamary()));
-          },
+          onPressed: () => Navigator.pop(context), // Changed to Navigator.pop
         ),
       ),
       body: Padding(
@@ -80,6 +79,24 @@ class _PaymentState extends State<Payment> {
                   ),
                 ],
               ),
+
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Checkbox(
+                  value: isPayOnDelivery,
+                  onChanged: (value) {
+                    setState(() {
+                      isPayOnDelivery = value ?? false;
+                    });
+                  },
+                ),
+                Text(
+                  "Cash on Delivery",
+                  style: GoogleFonts.openSans(fontSize: 16),
+                ),
+              ],
+            ),
 
             Spacer(),
 
@@ -193,7 +210,8 @@ class _PaymentState extends State<Payment> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Welcome()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Welcome()));
                   },
                   child: Text(
                     'Confirm',

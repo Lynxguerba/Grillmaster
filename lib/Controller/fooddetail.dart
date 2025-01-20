@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grillmaster/Controller/cartmodel.dart';
+// import 'package:guerba_app/Controller/cartmodel.dart';
 import 'package:provider/provider.dart';
 
 class FoodDetail extends StatefulWidget {
@@ -106,17 +107,10 @@ class _FoodDetailState extends State<FoodDetail> {
                               widget.description,
                               widget.rating,
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Added to Favorites!')),
-                            );
                           } else {
                             // Remove from favorites
                             Provider.of<CartModel>(context, listen: false)
                                 .removeFromFavorites(widget.name);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text('Removed from Favorites!')),
-                            );
                           }
                         },
                         child: Container(
@@ -147,7 +141,6 @@ class _FoodDetailState extends State<FoodDetail> {
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
-
                     child: Icon(
                       Icons.arrow_back,
                       color: Colors.black,
@@ -426,11 +419,44 @@ class _FoodDetailState extends State<FoodDetail> {
                     onPressed: () {
                       // Add the item to the cart
                       Provider.of<CartModel>(context, listen: false).addToCart(
-                          widget.name, totalPrice, quantity, widget.image);
+                        widget.name,
+                        totalPrice,
+                        quantity,
+                        widget.image,
+                      );
 
-                      // Optional: Show a success message
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Item added to cart!')),
+                      // Show a dialog box as a success message
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(
+                              'Success',
+                              style: GoogleFonts.openSans(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            content: Text(
+                              'Item added to cart!',
+                              style: GoogleFonts.openSans(),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pop(); // Close the dialog
+                                },
+                                child: Text(
+                                  'OK',
+                                  style: GoogleFonts.openSans(
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -455,7 +481,7 @@ class _FoodDetailState extends State<FoodDetail> {
                         color: Colors.white,
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
